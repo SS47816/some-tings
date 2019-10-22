@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<launch>
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find agv)/config/rosconsole.config"/>
+
+
+<!-- Path planner -->
+  <node name="agv_planner" pkg="agv" type="agv_planner" output="screen">
+    
+    <!-- Hyperparameters -->
+    <param name="planning_frequency"    value="10.0"/>
+    <param name="output_path_max_size"  value="30"/>
+    <param name="output_path_min_size"  value="20"/>
+    <param name="distance_bound"        value="300.0"/>
+    
+    <!-- Input Topic Names -->
+    <param name="odom_topic"            value="/odometry/filtered"/>
+    <param name="obstacle_topic"        value="/obstacles"/>
+    <param name="obstacle_topic_2"      value="/obstacles2"/>
+    <param name="lane_info_topic"       value="/lane_info_topic"/>
+    
+    <!-- Output Topic Names -->
+    <param name="output_path_topic"     value="/output_path"/>
+    <param name="next_path_topic"       value="/next_path"/>
+    <param name="ref_path_topic"        value="/ref_path"/>
+    <param name="wp_array_topic"        value="/wp_array"/>
+    <param name="current_pose_topic"    value="/current_pose_topic"/>
+
+    <!-- Output Steering Topic -->
+    <param name="steering_frequency"    value="10.0"/>
+    <param name="steering_angle_topic"  value="/desired_steering_angle"/>
+    <param name="stanley_overall_gain"  value="0.8"/>
+    <param name="track_error_gain"      value="0.05"/>
+    <param name="max_steering_angle"    value="0.336"/>
+    
+    <!-- Planner Sampling Params-->
+    <!-- Sampling Width -->
+    <param name="left_road_width"       value="1.5"/>
+    <param name="right_road_width"      value="4.5"/>
+    <param name="delta_width"           value="0.3"/>
+    <!-- look-ahead time (Sampling Length) -->
+    <param name="max_t"                 value="10.0"/>
+    <param name="min_t"                 value="8.0"/>
+    <param name="delta_t"               value="0.3"/>
+    <!-- Sampling Length-->
+    <param name="target_speed"          value="3.0"/>
+    <param name="delta_speed"           value="0.5"/>
+    <param name="num_max_sample"        value="0.0"/>
+
+    <!-- Safety & Comfort Criteria -->
+    <param name="max_speed"             value="3.0"/>
+    <param name="max_accel"             value="9.0"/>
+    <param name="max_deccel"            value="-4.0"/>
+    <param name="max_curvature"         value="1.0"/>
+
+    <param name="num_of_circles"        value="3"/>
+    <param name="circle_radius"         value="0.70"/>
+    <param name="circle_position_1"     value="0.0"/>
+    <param name="circle_position_2"     value="1.1"/>
+    <param name="circle_position_3"     value="2.2"/>
+
+    <!-- Weights of Cost Functions -->
+    <param name="kj"                    value="0.1"/>
+    <param name="kt"                    value="0.1"/>
+    <param name="kd"                    value="1.0"/>
+    <param name="klat"                  value="1.0"/>
+    <param name="klon"                  value="1.0"/>
+  </node>
+
+</launch>
